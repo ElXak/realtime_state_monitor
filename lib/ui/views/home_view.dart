@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:realtime_state_monitor/ui/shared/ui_reducers.dart';
-import 'package:realtime_state_monitor/ui/views/feedback_view.dart';
-import 'package:realtime_state_monitor/ui/widgets/indicator_button.dart';
-import 'package:realtime_state_monitor/ui/widgets/stats_counter.dart';
-import 'package:realtime_state_monitor/ui/widgets/watcher_toolbar.dart';
 
 import '../../scoped_models/base_model.dart';
 import '../../scoped_models/home_view_model.dart';
 import '../shared/app_colors.dart';
+import '../shared/ui_reducers.dart';
+import '../widgets/indicator_button.dart';
+import '../widgets/stats_counter.dart';
+import '../widgets/watcher_toolbar.dart';
 import 'base_view.dart';
+import 'feedback_view.dart';
 
 class HomeView extends StatelessWidget {
   static const BoxDecoration topLineBorderDecoration = BoxDecoration(

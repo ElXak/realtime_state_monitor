@@ -12,5 +12,5 @@ void setupLocator() {
 
   // Register ScopedModels
   locator.registerFactory<HomeViewModel>(() => HomeViewModel());
-  locator.registerFactory<FeedbackViewModel>(() => FeedbackViewModel());
+  locator.registerSingleton(FeedbackViewModel());
 }

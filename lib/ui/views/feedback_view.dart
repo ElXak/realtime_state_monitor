@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:realtime_state_monitor/ui/shared/ui_reducers.dart';
+import 'package:realtime_state_monitor/ui/widgets/feedback_item.dart';
+import 'package:realtime_state_monitor/ui/widgets/watcher_toolbar.dart';
 
 import '../../enums/view_state.dart';
-import '../../models/list_item.dart';
+import '../../models/user_feedback.dart';
 import '../../scoped_models/feedback_view_model.dart';
-import '../shared/app_colors.dart';
 import '../shared/font_styles.dart';
 import 'base_view.dart';
 
@@ -11,10 +13,17 @@ class FeedbackView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseView<FeedbackViewModel>(
-        onModelReady: (model) => model.fetchListData(),
+        // onModelReady: (model) => model.fetchListData(),
         builder: (context, child, model) => Scaffold(
             backgroundColor: Theme.of(context).backgroundColor,
-            body: Container(child: _getBodyUi(context, model))));
+            body: Column(
+              children: [
+                WatcherToolbar(title: 'FEEDBACK', showBackButton: true),
+                Container(
+                    height: screenHeight(context, decreasedBy: toolbarHeight),
+                    child: _getBodyUi(context, model)),
+              ],
+            )));
   }
 
   Widget _getBodyUi(BuildContext context, FeedbackViewModel model) {
@@ -33,13 +42,17 @@ class FeedbackView extends StatelessWidget {
 
   Widget _getListUi(FeedbackViewModel model) {
     return ListView.builder(
-        itemCount: model.listData.length,
+        // itemCount: model.listData.length,
+        itemCount: model.userFeedback.length,
         itemBuilder: (context, itemIndex) {
-          var item = model.listData[itemIndex];
-          return _getListItemUi(item);
+          // var item = model.listData[itemIndex];
+          UserFeedback feedbackItem = model.userFeedback[itemIndex];
+          // return _getListItemUi(item);
+          return FeedbackItem(feedbackItem: feedbackItem);
         });
   }
 
+/*
   Container _getListItemUi(ListItem result) {
     return Container(
       height: 100.0,
@@ -55,6 +68,7 @@ class FeedbackView extends StatelessWidget {
       ),
     );
   }
+*/
 
   Widget _getLoadingUi(BuildContext context) {
     return Center(

@@ -1,8 +1,11 @@
-import '../models/list_item.dart';
+import '../models/user_feedback.dart';
+import '../service_locator.dart';
+import '../services/firebase_service.dart';
 import 'base_model.dart';
 
 /// Contains logic for a list view with the general expected functionality.
 class FeedbackViewModel extends BaseModel {
+/*
   List<ListItem> listData;
 
   Future fetchListData() async {
@@ -22,5 +25,24 @@ class FeedbackViewModel extends BaseModel {
           ? ViewState.NoDataAvailable
           : ViewState.DataFetched);
     }
+  }
+*/
+
+  FirebaseService _firebaseService = locator<FirebaseService>();
+  List<UserFeedback> userFeedback;
+
+  FeedbackViewModel() {
+    _firebaseService.feedback.listen(_onFeedbackUpdated);
+  }
+
+  void _onFeedbackUpdated(List<UserFeedback> feedback) {
+    userFeedback = feedback;
+
+    if (userFeedback == null)
+      setState(ViewState.Busy);
+    else
+      setState(userFeedback.length == 0
+          ? ViewState.NoDataAvailable
+          : ViewState.DataFetched);
   }
 }
