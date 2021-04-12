@@ -48,7 +48,11 @@ class FeedbackView extends StatelessWidget {
           // var item = model.listData[itemIndex];
           UserFeedback feedbackItem = model.userFeedback[itemIndex];
           // return _getListItemUi(item);
-          return FeedbackItem(feedbackItem: feedbackItem);
+          return FeedbackItem(
+            feedbackItem: feedbackItem,
+            onOpened: (feedbackId) =>
+                model.markFeedbackAsRead(feedbackId: feedbackId),
+          );
         });
   }
 

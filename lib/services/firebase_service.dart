@@ -9,6 +9,7 @@ class FirebaseService {
   final StreamController<Stats> _statsController = StreamController<Stats>();
   final StreamController<List<UserFeedback>> _feedbackController =
       StreamController<List<UserFeedback>>();
+  final StreamController<int> _unreadController = StreamController<int>();
 
   FirebaseService() {
     FirebaseFirestore.instance
@@ -28,6 +29,15 @@ class FirebaseService {
 
   Stream<List<UserFeedback>> get feedback => _feedbackController.stream;
 
+  Stream<int> get unreadCount => _unreadController.stream;
+
+  void markFeedbackAsRead({String feedbackId}) {
+    FirebaseFirestore.instance
+        .collection('feedback')
+        .doc(feedbackId)
+        .update({'read': true});
+  }
+
   void _statsUpdated(DocumentSnapshot snapshot) {
     _statsController.add(Stats.fromSnapshots(snapshot));
   }
@@ -35,6 +45,7 @@ class FirebaseService {
   void _feedbackAdded(QuerySnapshot snapshot) {
     List<UserFeedback> feedback = _getFeedbackFromSnapshot(snapshot);
     _feedbackController.add(feedback);
+    _emitUnreadCount(feedback);
   }
 
   List<UserFeedback> _getFeedbackFromSnapshot(QuerySnapshot snapshot) {
@@ -45,10 +56,17 @@ class FirebaseService {
 
     if (hasDocuments) {
       for (QueryDocumentSnapshot document in documents) {
-        feedbackItems.add(UserFeedback.fromData(document.data()));
+        Map<String, dynamic> documentData = document.data();
+        documentData['id'] = document.id;
+        feedbackItems.add(UserFeedback.fromData(documentData));
       }
     }
 
     return feedbackItems;
+  }
+
+  void _emitUnreadCount(List<UserFeedback> userFeedback) {
+    int unreadCount = userFeedback.where((item) => !item.read).length;
+    _unreadController.add(unreadCount);
   }
 }

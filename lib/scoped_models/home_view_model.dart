@@ -7,9 +7,11 @@ class HomeViewModel extends BaseModel {
   FirebaseService _firebaseService = locator<FirebaseService>();
 
   Stats appStats;
+  int unreadCount;
 
   HomeViewModel() {
     _firebaseService.appStats.listen(_onStatusUpdated);
+    _firebaseService.unreadCount.listen(_onUnreadCountUpdated);
   }
 
   void _onStatusUpdated(Stats stats) {
@@ -21,5 +23,10 @@ class HomeViewModel extends BaseModel {
       setState(ViewState
           .DataFetched); // When not null indicate that the data is fetched
     }
+  }
+
+  void _onUnreadCountUpdated(int count) {
+    unreadCount = count;
+    setState(ViewState.DataFetched);
   }
 }

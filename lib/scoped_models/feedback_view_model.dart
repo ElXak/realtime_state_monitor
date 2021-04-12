@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 import '../models/user_feedback.dart';
 import '../service_locator.dart';
 import '../services/firebase_service.dart';
@@ -33,6 +35,10 @@ class FeedbackViewModel extends BaseModel {
 
   FeedbackViewModel() {
     _firebaseService.feedback.listen(_onFeedbackUpdated);
+  }
+
+  void markFeedbackAsRead({@required String feedbackId}) {
+    _firebaseService.markFeedbackAsRead(feedbackId: feedbackId);
   }
 
   void _onFeedbackUpdated(List<UserFeedback> feedback) {

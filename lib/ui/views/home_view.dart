@@ -88,6 +88,7 @@ class HomeView extends StatelessWidget {
             title: 'FEEDBACK',
             onTap: () => Navigator.push(context,
                 MaterialPageRoute(builder: (context) => FeedbackView())),
+            indicationCount: model.unreadCount,
           ),
         ),
       ],
