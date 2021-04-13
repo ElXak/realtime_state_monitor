@@ -1,6 +1,6 @@
 # realtime_state_monitor
 
-Flutter with Firestore and Scoped model architecture.
+Flutter with Firestore and Scoped model architecture. 1. Scoped model with Firestore 2. Connectivity Status with StreamProvider
 
 ## Getting Started
 
