@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:realtime_state_monitor/ui/widgets/network_sensitive.dart';
 
 import '../../scoped_models/base_model.dart';
 import '../../scoped_models/home_view_model.dart';
@@ -46,13 +47,15 @@ class HomeView extends StatelessWidget {
           context: context,
           height:
               screenHeight(context, dividedBy: 2, decreasedBy: toolbarHeight),
-          child: StatsCounter(
-            size: screenHeight(context,
-                    dividedBy: 2, decreasedBy: toolbarHeight) -
-                60,
-            count: model.appStats.errorCount,
-            title: 'Errors',
-            titleColor: Colors.red,
+          child: NetworkSensitive(
+            child: StatsCounter(
+              size: screenHeight(context,
+                      dividedBy: 2, decreasedBy: toolbarHeight) -
+                  60,
+              count: model.appStats.errorCount,
+              title: 'Errors',
+              titleColor: Colors.red,
+            ),
           ),
         ),
         _getHeightContainer(
@@ -63,19 +66,23 @@ class HomeView extends StatelessWidget {
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              StatsCounter(
-                size: screenHeight(context,
-                        dividedBy: 3, decreasedBy: toolbarHeight) -
-                    60,
-                count: model.appStats.userCount,
-                title: 'Users',
+              NetworkSensitive(
+                child: StatsCounter(
+                  size: screenHeight(context,
+                          dividedBy: 3, decreasedBy: toolbarHeight) -
+                      60,
+                  count: model.appStats.userCount,
+                  title: 'Users',
+                ),
               ),
-              StatsCounter(
-                size: screenHeight(context,
-                        dividedBy: 3, decreasedBy: toolbarHeight) -
-                    60,
-                count: model.appStats.appCount,
-                title: 'Apps Created',
+              NetworkSensitive(
+                child: StatsCounter(
+                  size: screenHeight(context,
+                          dividedBy: 3, decreasedBy: toolbarHeight) -
+                      60,
+                  count: model.appStats.appCount,
+                  title: 'Apps Created',
+                ),
               ),
             ],
           ),

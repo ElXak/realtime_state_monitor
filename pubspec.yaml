@@ -31,10 +31,12 @@ dependencies:
   # scoped model packages
   scoped_model: ^1.1.0
   # get it
-  get_it: ^6.0.0
+  get_it: ^6.1.0
   # firebase firestore
-  firebase_core: ^1.0.2
-  cloud_firestore: ^1.0.3
+  firebase_core: ^1.0.3
+  cloud_firestore: ^1.0.4
+  connectivity: ^3.0.3
+  provider: ^5.0.0
 
 dev_dependencies:
   flutter_test:
