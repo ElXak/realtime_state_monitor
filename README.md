@@ -1,6 +1,6 @@
 # realtime_state_monitor
 
-A new Flutter project.
+Flutter with Firestore and Scoped model architecture.
 
 ## Getting Started
 
